@@ -1,0 +1,93 @@
+.panel {
+  background-color: #FFF9E6;
+  border-radius: 20px;
+  padding: 40px 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  min-height: 500px;
+}
+
+.panel-introduccion {
+  justify-content: space-between;
+}
+
+.titulo-principal {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #2C3E50;
+  text-align: center;
+  line-height: 1.2;
+  margin-bottom: 30px;
+  letter-spacing: 2px;
+}
+
+.descripcion {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.descripcion p {
+  font-size: 1.15rem;
+  color: #4A4A4A;
+  line-height: 1.8;
+  text-align: center;
+}
+
+.formas-memoria {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 30px 0;
+}
+
+.forma {
+  width: 100px;
+  height: 100px;
+  border-radius: 20px;
+  filter: blur(15px);
+  opacity: 0.6;
+}
+
+.forma-1 {
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+}
+
+.forma-2 {
+  background: linear-gradient(135deg, #87CEEB 0%, #4682B4 100%);
+}
+
+.boton-compartir {
+  background-color: #D4C5A0;
+  color: #2C3E50;
+  border: none;
+  border-radius: 12px;
+  padding: 16px 32px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Georgia', serif;
+}
+
+.boton-compartir:hover {
+  background-color: #C4B590;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 768px) {
+  .titulo-principal {
+    font-size: 2rem;
+  }
+  
+  .descripcion p {
+    font-size: 1rem;
+  }
+  
+  .forma {
+    width: 80px;
+    height: 80px;
+  }
+}

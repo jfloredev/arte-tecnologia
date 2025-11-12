@@ -1,0 +1,138 @@
+.panel-colectivo {
+  position: relative;
+  overflow: visible;
+}
+
+.grid-memorias {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.tarjeta-memoria {
+  aspect-ratio: 1;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tarjeta-memoria:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.forma-abstracta {
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+  filter: blur(20px);
+}
+
+.modal-memoria {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.contenido-modal {
+  background-color: #FFF9E6;
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  animation: modalEntrada 0.3s ease;
+}
+
+@keyframes modalEntrada {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.texto-memoria {
+  font-size: 1.1rem;
+  color: #4A4A4A;
+  line-height: 1.8;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.boton-identificacion {
+  width: 100%;
+  padding: 14px;
+  background-color: #fff;
+  color: #4A4A4A;
+  border: 2px solid #E5DCC5;
+  border-radius: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Georgia', serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.boton-identificacion:hover {
+  background-color: #FFE5E5;
+  border-color: #FFB8B8;
+  transform: translateY(-2px);
+}
+
+.boton-cerrar {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 35px;
+  height: 35px;
+  border: none;
+  background-color: #E5DCC5;
+  color: #4A4A4A;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.boton-cerrar:hover {
+  background-color: #D4C5A0;
+  transform: rotate(90deg);
+}
+
+@media (max-width: 768px) {
+  .contenido-modal {
+    padding: 30px;
+    margin: 20px;
+  }
+  
+  .texto-memoria {
+    font-size: 1rem;
+  }
+}
