@@ -1,7 +1,7 @@
 import React from 'react';
 import './PanelIntroduccion.css';
 
-const PanelIntroduccion = () => {
+const PanelIntroduccion = ({ usuario }) => {
   return (
     <div className="panel panel-introduccion">
       <h1 className="titulo-principal">MEMORIAS CONECTADAS</h1>

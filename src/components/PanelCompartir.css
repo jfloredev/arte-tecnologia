@@ -15,19 +15,19 @@
   width: 100%;
   min-height: 120px;
   padding: 20px;
-  border: 2px solid #E5DCC5;
+  border: 2px solid rgba(102, 126, 234, 0.3);
   border-radius: 12px;
   font-size: 1rem;
-  font-family: 'Georgia', serif;
-  color: #4A4A4A;
-  background-color: #FFFEF8;
+  color: #333;
+  background-color: rgba(255, 255, 255, 0.9);
   resize: vertical;
   transition: border-color 0.3s ease;
 }
 
 .textarea-memoria:focus {
   outline: none;
-  border-color: #C4B590;
+  border-color: #667eea;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
 }
 
 .textarea-memoria::placeholder {
@@ -40,54 +40,54 @@
   gap: 12px;
   justify-content: center;
   padding: 15px;
-  border: 3px solid #4DB8E8;
-  border-radius: 25px;
-  background-color: rgba(77, 184, 232, 0.05);
+  border: 2px solid rgba(102, 126, 234, 0.3);
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 .boton-emocion {
   padding: 12px 24px;
-  border: 2px solid #C4B590;
-  background-color: #FFFEF8;
-  color: #4A4A4A;
+  border: 2px solid rgba(102, 126, 234, 0.5);
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #333;
   border-radius: 25px;
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: 'Georgia', serif;
+  font-weight: 500;
 }
 
 .boton-emocion:hover {
-  background-color: #F5F0E8;
+  background-color: rgba(102, 126, 234, 0.1);
   transform: translateY(-2px);
 }
 
 .boton-emocion.seleccionado {
-  background-color: #4DB8E8;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  border-color: #4DB8E8;
+  border-color: transparent;
   transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 
 .boton-enviar {
   width: 100%;
   padding: 16px;
-  background-color: #D4C5A0;
-  color: #2C3E50;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
   border: none;
   border-radius: 12px;
   font-size: 1.2rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: 'Georgia', serif;
   margin-top: auto;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
 .boton-enviar:hover:not(:disabled) {
-  background-color: #C4B590;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
 }
 
 .boton-enviar:disabled {

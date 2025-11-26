@@ -1,11 +1,12 @@
 .panel {
-  background-color: #FFF9E6;
+  background: rgba(255, 255, 255, 0.95);
   border-radius: 20px;
   padding: 40px 30px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
   min-height: 500px;
+  backdrop-filter: blur(10px);
 }
 
 .panel-introduccion {
@@ -51,30 +52,29 @@
 }
 
 .forma-1 {
-  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 .forma-2 {
-  background: linear-gradient(135deg, #87CEEB 0%, #4682B4 100%);
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 }
 
 .boton-compartir {
-  background-color: #D4C5A0;
-  color: #2C3E50;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
   border: none;
   border-radius: 12px;
   padding: 16px 32px;
   font-size: 1.1rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: 'Georgia', serif;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
 .boton-compartir:hover {
-  background-color: #C4B590;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
 }
 
 @media (max-width: 768px) {

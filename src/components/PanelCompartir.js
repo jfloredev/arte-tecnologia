@@ -1,28 +1,41 @@
 import React, { useState } from 'react';
 import './PanelCompartir.css';
+import { generarImagenMemoria } from '../services/geminiService';
 
-const PanelCompartir = ({ onAgregarMemoria }) => {
+const PanelCompartir = ({ usuario, onAgregarMemoria }) => {
   const [texto, setTexto] = useState('');
   const [emocionSeleccionada, setEmocionSeleccionada] = useState('');
+  const [generando, setGenerando] = useState(false);
 
   const emociones = ['Alegría', 'Miedo', 'Nostalgia', 'Esperanza'];
-  
-  const coloresEmociones = {
-    'Alegría': '#FFD700',
-    'Miedo': '#8B7D6B',
-    'Nostalgia': '#87CEEB',
-    'Esperanza': '#90EE90'
-  };
 
-  const handleEnviar = () => {
-    if (texto.trim() && emocionSeleccionada) {
+  const handleEnviar = async () => {
+    if (texto.trim() && emocionSeleccionada && usuario) {
+      setGenerando(true);
+      
+      console.log('🚀 Iniciando generación de memoria...');
+      console.log('📝 Texto:', texto);
+      console.log('💭 Emoción:', emocionSeleccionada);
+      
+      // Generar imagen y paleta de colores con Gemini
+      const resultado = await generarImagenMemoria(texto, emocionSeleccionada);
+      
+      console.log('✅ Resultado de generación:', resultado);
+      
       onAgregarMemoria({
         texto: texto,
         emocion: emocionSeleccionada,
-        color: coloresEmociones[emocionSeleccionada]
+        color: resultado.colores[0],
+        gradiente: resultado.gradiente,
+        imagenUrl: resultado.imagenUrl,
+        overlay: resultado.overlay || false,
+        autor: usuario,
+        fecha: new Date().toISOString()
       });
+      
       setTexto('');
       setEmocionSeleccionada('');
+      setGenerando(false);
     }
   };
 
@@ -52,9 +65,9 @@ const PanelCompartir = ({ onAgregarMemoria }) => {
       <button 
         className="boton-enviar"
         onClick={handleEnviar}
-        disabled={!texto.trim() || !emocionSeleccionada}
+        disabled={!texto.trim() || !emocionSeleccionada || !usuario || generando}
       >
-        Enviar
+        {generando ? '✨ Generando...' : 'Enviar'}
       </button>
     </div>
   );
