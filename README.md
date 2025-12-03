@@ -29,3 +29,4 @@ La aplicación se abrirá en [http://localhost:3000](http://localhost:3000)
 - React 18
 - CSS3
 - JavaScript ES6+
+# Deploy trigger
