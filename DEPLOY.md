@@ -26,7 +26,7 @@ En la página de configuración:
 ### 4. Agregar variables de entorno
 En "Environment Variables":
 - Name: `GEMINI_API_KEY`
-- Value: `AIzaSyCK8pHIpmkztVgNSxDs4cwFabvUjqreGQc`
+- Value: `[TU_API_KEY_AQUI]` (usa la que está en tu archivo .env local)
 - ✅ Production
 - ✅ Preview
 - ✅ Development
