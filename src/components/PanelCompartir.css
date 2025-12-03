@@ -1,23 +1,23 @@
 .panel-compartir {
   justify-content: flex-start;
-  gap: 25px;
+  gap: 15px;
 }
 
 .titulo-seccion {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
   color: #2C3E50;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .textarea-memoria {
   width: 100%;
-  min-height: 120px;
-  padding: 20px;
+  min-height: 80px;
+  padding: 12px;
   border: 2px solid rgba(102, 126, 234, 0.3);
-  border-radius: 12px;
-  font-size: 1rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
   color: #333;
   background-color: rgba(255, 255, 255, 0.9);
   resize: vertical;
@@ -35,26 +35,29 @@
 }
 
 .emociones-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  justify-content: center;
-  padding: 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 8px;
+  padding: 10px;
   border: 2px solid rgba(102, 126, 234, 0.3);
-  border-radius: 15px;
+  border-radius: 12px;
   background-color: rgba(255, 255, 255, 0.5);
 }
 
 .boton-emocion {
-  padding: 12px 24px;
+  padding: 8px 14px;
   border: 2px solid rgba(102, 126, 234, 0.5);
   background-color: rgba(255, 255, 255, 0.9);
   color: #333;
-  border-radius: 25px;
-  font-size: 1rem;
+  border-radius: 20px;
+  font-size: 0.88rem;
   cursor: pointer;
   transition: all 0.3s ease;
   font-weight: 500;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .boton-emocion:hover {
@@ -72,12 +75,12 @@
 
 .boton-enviar {
   width: 100%;
-  padding: 16px;
+  padding: 12px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
-  border-radius: 12px;
-  font-size: 1.2rem;
+  border-radius: 10px;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;

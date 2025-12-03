@@ -10,11 +10,15 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 
 // Configurar CORS para permitir solicitudes desde React
-app.use(cors({
-  origin: ['http://localhost:3000', 'http://10.100.237.30:3000'],
+const corsOptions = {
+  origin: process.env.NODE_ENV === 'production' 
+    ? process.env.FRONTEND_URL || '*'
+    : ['http://localhost:3000', 'http://10.100.237.30:3000'],
   methods: ['GET', 'POST'],
   credentials: true
-}));
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
@@ -23,8 +27,13 @@ app.get('/', (req, res) => {
   res.json({ 
     message: '✨ Backend de Memorias Conectadas funcionando!',
     status: 'online',
-    endpoints: ['/generate-image']
+    endpoints: ['/generate-image', '/api/generate-image']
   });
+});
+
+// Health check para Vercel
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', message: 'Backend funcionando' });
 });
 
 // 🎨 Endpoint usando Azure DALL-E como prioridad
@@ -50,7 +59,39 @@ app.post('/generate-image', async (req, res) => {
     ) % 999999;
     console.log('🎲 Seed:', seed);
 
-    // Crear prompt simple pero descriptivo
+    // Detectar temas históricos/sociales y enriquecer el prompt
+    const temasHistoricos = {
+      'covid': 'pandemia COVID-19, cuarentena, mascarillas, distanciamiento social, esperanza',
+      'pandemia': 'pandemia COVID-19, cuarentena, solidaridad, resiliencia',
+      'cuarentena': 'cuarentena COVID-19, aislamiento, ventanas, esperanza',
+      'paradeportista': 'paradeportistas peruanos, superación, inclusión, determinación',
+      'deportista': 'atletas paralímpicos, inclusión, fuerza',
+      'paro': 'paro de transportistas, protesta, carreteras bloqueadas, impacto social',
+      'transportista': 'camioneros, carreteras, protesta, economía peruana',
+      'israel': 'conflicto Israel, guerra, paz, dolor',
+      'guerra': 'conflicto bélico, sufrimiento, esperanza de paz',
+      'fujimori': 'época Fujimori 1990s, Perú, historia política',
+      'alberto': 'gobierno Fujimori, años 90, Perú',
+      'castillo': 'Pedro Castillo, crisis política peruana, 2021-2022',
+      'pedro': 'presidente Pedro Castillo, política peruana reciente',
+      'terremoto': 'terremoto Áncash 1970, tragedia Yungay, memoria histórica',
+      'ancash': 'terremoto 1970, Yungay, devastación, reconstrucción',
+      'yungay': 'tragedia Yungay 1970, terremoto, memoria colectiva'
+    };
+
+    // Buscar si el texto menciona algún tema histórico
+    let contextoHistorico = '';
+    const textoLower = texto.toLowerCase();
+    
+    for (const [palabra, contexto] of Object.entries(temasHistoricos)) {
+      if (textoLower.includes(palabra)) {
+        contextoHistorico = contexto;
+        console.log('📚 Tema histórico detectado:', palabra);
+        break;
+      }
+    }
+
+    // Crear prompt enriquecido con contexto histórico
     const palabrasClave = texto
       .toLowerCase()
       .replace(/[^\w\sáéíóúñ]/g, '')
@@ -59,7 +100,11 @@ app.post('/generate-image', async (req, res) => {
       .slice(0, 5)
       .join(' ');
     
-    const prompt = `${palabrasClave} ${emocion.toLowerCase()} happy colorful art`;
+    const promptBase = contextoHistorico 
+      ? `${contextoHistorico}, ${palabrasClave}, ${emocion.toLowerCase()}, arte emotivo peruano`
+      : `${palabrasClave} ${emocion.toLowerCase()} arte peruano colorido`;
+    
+    const prompt = promptBase;
     console.log('📋 Prompt:', prompt);
 
     // Intentar múltiples APIs hasta que una funcione
@@ -268,6 +313,17 @@ app.post('/generate-image', async (req, res) => {
 // 🎨 Función auxiliar para colores por defecto
 function obtenerColoresPorDefecto(emocion) {
   const coloresPorEmocion = {
+    // Temas históricos y sociales
+    'COVID-19 y Cuarentena': ['#E74C3C', '#C0392B', '#8E44AD'],
+    'Paradeportistas': ['#3498DB', '#2ECC71', '#F39C12'],
+    'Paros de Transportistas': ['#E67E22', '#D35400', '#95A5A6'],
+    'Guerra en Israel': ['#34495E', '#7F8C8D', '#95A5A6'],
+    'Gobierno de Fujimori': ['#8E44AD', '#9B59B6', '#5D6D7E'],
+    'Pedro Castillo': ['#C0392B', '#E74C3C', '#F39C12'],
+    'Terremoto de Áncash 1970': ['#2C3E50', '#34495E', '#7F8C8D'],
+    'Temática Libre': ['#667eea', '#764ba2', '#f093fb'],
+    
+    // Emociones legacy (por si acaso)
     'Alegría': ['#FFD700', '#FFA500', '#FF6B6B'],
     'Miedo': ['#4A4A4A', '#2C2C2C', '#6B5B95'],
     'Nostalgia': ['#87CEEB', '#4682B4', '#6A5ACD'],
@@ -276,6 +332,9 @@ function obtenerColoresPorDefecto(emocion) {
   
   return coloresPorEmocion[emocion] || ['#667eea', '#764ba2', '#f093fb'];
 }
+
+// Exportar para Vercel
+export default app;
 
 // Iniciar servidor
 app.listen(PORT, () => {

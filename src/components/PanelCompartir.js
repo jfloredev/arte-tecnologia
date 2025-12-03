@@ -7,7 +7,16 @@ const PanelCompartir = ({ usuario, onAgregarMemoria }) => {
   const [emocionSeleccionada, setEmocionSeleccionada] = useState('');
   const [generando, setGenerando] = useState(false);
 
-  const emociones = ['Alegría', 'Miedo', 'Nostalgia', 'Esperanza'];
+  const emociones = [
+    'COVID-19 y Cuarentena',
+    'Paradeportistas',
+    'Paros de Transportistas',
+    'Guerra en Israel',
+    'Gobierno de Fujimori',
+    'Pedro Castillo',
+    'Terremoto de Áncash 1970',
+    'Temática Libre'
+  ];
 
   const handleEnviar = async () => {
     if (texto.trim() && emocionSeleccionada && usuario) {
@@ -45,7 +54,7 @@ const PanelCompartir = ({ usuario, onAgregarMemoria }) => {
       
       <textarea
         className="textarea-memoria"
-        placeholder="Escribe aquí un recuerdo sobre"
+        placeholder="Escribe aquí tu memoria sobre eventos históricos y sociales del Perú..."
         value={texto}
         onChange={(e) => setTexto(e.target.value)}
       />

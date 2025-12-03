@@ -1,40 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import PanelIntroduccion from './components/PanelIntroduccion';
 import PanelCompartir from './components/PanelCompartir';
 import PanelColectivo from './components/PanelColectivo';
 
 function App() {
-  const [memorias, setMemorias] = useState([
-    {
-      id: 1,
-      texto: "Recuerdo el día que nos reunimos con mis primos después de tantos años.",
-      color: "#FFB84D",
-      emocion: "Alegría",
-      autor: "Demo"
-    },
-    {
-      id: 2,
-      texto: "La primera vez que visité la playa con mi familia.",
-      color: "#87CEEB",
-      emocion: "Nostalgia",
-      autor: "Demo"
-    },
-    {
-      id: 3,
-      texto: "El momento en que aprendí a andar en bicicleta.",
-      color: "#4682B4",
-      emocion: "Esperanza",
-      autor: "Demo"
-    },
-    {
-      id: 4,
-      texto: "Aquel día lluvioso en el que todo cambió.",
-      color: "#FFB84D",
-      emocion: "Nostalgia",
-      autor: "Demo"
-    }
-  ]);
+  const [memorias, setMemorias] = useState([]);
 
   const [usuario, setUsuario] = useState('');
 
@@ -48,8 +18,29 @@ function App() {
     localStorage.setItem('usuario', value);
   };
 
-  const agregarMemoria = (nuevaMemoria) => {
-    setMemorias([...memorias, { ...nuevaMemoria, id: memorias.length + 1 }]);
+  const agregarMemoria = (nuevaMemoria, idActualizar = null) => {
+    if (idActualizar) {
+      // Actualizar memoria existente
+      setMemorias(memorias.map(m => 
+        m.id === idActualizar ? { ...nuevaMemoria, id: idActualizar } : m
+      ));
+    } else {
+      // Agregar nueva memoria
+      const nuevaMemoriaConId = { ...nuevaMemoria, id: memorias.length + 1 };
+      setMemorias([...memorias, nuevaMemoriaConId]);
+      
+      // Programar eliminación de imagen después de 3 minutos
+      if (nuevaMemoriaConId.imagenUrl) {
+        setTimeout(() => {
+          setMemorias(prev => prev.map(m => 
+            m.id === nuevaMemoriaConId.id 
+              ? { ...m, imagenUrl: null } 
+              : m
+          ));
+          console.log(`🗑️ Imagen eliminada de memoria ID ${nuevaMemoriaConId.id} después de 3 minutos`);
+        }, 3 * 60 * 1000); // 3 minutos
+      }
+    }
   };
 
   const [inputTemp, setInputTemp] = useState('');
@@ -113,9 +104,8 @@ function App() {
         </button>
       </div>
       <div className="container">
-        <PanelIntroduccion usuario={usuario} />
         <PanelCompartir usuario={usuario} onAgregarMemoria={agregarMemoria} />
-        <PanelColectivo memorias={memorias} />
+        <PanelColectivo memorias={memorias} onAgregarMemoria={agregarMemoria} usuario={usuario} />
       </div>
     </div>
   );

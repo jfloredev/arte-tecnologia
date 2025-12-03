@@ -1,7 +1,10 @@
 // ⚠️ IMPORTANTE: Este servicio NO expone la API Key
 // Todas las llamadas van a través del backend seguro en Node.js
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5001';
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 
+  (process.env.NODE_ENV === 'production' 
+    ? '/api' 
+    : 'http://localhost:5001');
 
 // Función para generar imagen de forma SEGURA a través del backend
 export const generarImagenMemoria = async (textoMemoria, emocion) => {
